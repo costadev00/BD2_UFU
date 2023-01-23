@@ -1,0 +1,22 @@
+#!/bin/sh -
+
+derby=/usr/share/java/derby.jar
+mypath=/home/maycon/5Periodo/BD2/JDBCTutorial
+mypackage=com/oracle/tutorial/jdbc
+
+if [ -r $mypath/src/$mypackage/$1.java -a -r $mypath/$2 ]
+then
+
+	javac -cp "$derby:$mypath/classes:$mypath/lib/JDBCTutorial.jar" $mypath/src/$mypackage/$1.java
+
+	if [ -r $mypath/src/$mypackage/$1.class ]
+	then
+		mv $mypath/src/$mypackage/$1.class $mypath/classes/$mypackage/
+
+		java -cp "$derby:$mypath/classes" $mypackage/$1  $mypath/$2
+	fi
+else 
+	echo Missing file, check:
+	ls $mypath/src/$mypackage/$1.java
+	ls $mypath/$2
+fi
